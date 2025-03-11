@@ -32,11 +32,9 @@ function NavBar() {
                         <div className='indicator'>
                             <div className='p-2 rounded-full hover:bg-base-200 transition-colors relative'>
                                 <ShoppingBag className='size-5' />
-                                {productCount > 0 && (
                                     <span className='badge badge-sm badge-primary indicator-item'>
                                         {productCount}
                                     </span>
-                                )}
                             </div>
                         </div>
                     )}
