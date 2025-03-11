@@ -1,15 +1,21 @@
-import { Link, useResolvedPath } from 'react-router-dom'
+import { Link, useResolvedPath } from 'react-router-dom';
 import { ShoppingBag, ShoppingCart } from 'lucide-react';
+import { useProductStore } from '../store/useProductStore';
 
 function NavBar() {
     const { pathname } = useResolvedPath();
     const isHomePage = pathname === "/";
+    
+    // Access products from Zustand store
+    const { products } = useProductStore();
+    const productCount = products.length; // Dynamic count of products
+
     return (
         <div className='bg-base-100/80 backdrop-blur-lg border-base-content/10 sticky top-0 z-50'>
             <div className='max-w-7xl mx-auto'>
                 <div className='navbar px-4 min-h-[4rem] justify-between'>
+                    
                     {/* LOGO */}
-
                     <div className='flex-1 lg:flex-none'>
                         <Link to="/" className='hover:opacity-80 transition-opacity'>
                             <div className='flex items-center gap-2'>
@@ -24,9 +30,13 @@ function NavBar() {
                     {/* CART */}
                     {isHomePage && (
                         <div className='indicator'>
-                            <div className='p-2 rounded-full hover:bg-base-200 transition-colors'>
-                                <ShoppingBag className='size-5'/>
-                                <span className='badge badge-sm badge-primary indicator-item'>8</span>
+                            <div className='p-2 rounded-full hover:bg-base-200 transition-colors relative'>
+                                <ShoppingBag className='size-5' />
+                                {productCount > 0 && (
+                                    <span className='badge badge-sm badge-primary indicator-item'>
+                                        {productCount}
+                                    </span>
+                                )}
                             </div>
                         </div>
                     )}
@@ -34,7 +44,7 @@ function NavBar() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default NavBar
+export default NavBar;
